@@ -34,6 +34,20 @@ Make a folder, and put a `chapter.json` in it:
 |---|---|---|
 | `title` | yes | Shown as the chapter heading |
 | `description` | no | Small grey line under the heading; omit it if you don't want one |
+| `links` | no | Documents that apply to the whole chapter, shown as links under the heading |
+
+Each entry in `links` needs a `label` and an `href`. Use it for things like the
+contest's general problem description — put the file in `public/` and point at
+it with a leading slash:
+
+```json
+{
+  "title": "ORI 2026, clasa IX",
+  "links": [
+    { "label": "Descrierea generală — Ziua 1", "href": "/descriere-z1.pdf" }
+  ]
+}
+```
 
 To put the chapter third in the list, name the folder `03-recursivitate`.
 

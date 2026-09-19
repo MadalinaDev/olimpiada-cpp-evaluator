@@ -34,11 +34,21 @@ export interface Problem {
   chapterSlug: string;
 }
 
+/** A document that applies to a whole chapter, e.g. the general problem description. */
+export interface ChapterLink {
+  /** Text shown on the link */
+  label: string;
+  /** Where it points; a file in public/ is referenced as "/name.pdf" */
+  href: string;
+}
+
 export interface Chapter {
   /** Display title, from chapter.json */
   title: string;
   /** Optional blurb shown under the chapter heading */
   description?: string;
+  /** Optional documents shown as links under the heading */
+  links?: ChapterLink[];
   /** URL slug, derived from the folder name (minus its numeric prefix) */
   slug: string;
   /** Problems in file order */

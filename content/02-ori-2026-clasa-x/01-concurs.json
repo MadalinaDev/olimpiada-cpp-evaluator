@@ -1,0 +1,146 @@
+{
+  "title": "Concurs",
+  "statement": "<a href=\"/ori2026-concurs.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-blue-400 hover:text-blue-300 underline\">Deschide enunțul problemei (PDF)</a>",
+  "testCases": [
+    {
+      "id": 1,
+      "name": "Test 1",
+      "description": "Primul exemplu din enunt - inregistrare corecta",
+      "input": "7 3\n8\n",
+      "expectedOutput": "8\nCORECT"
+    },
+    {
+      "id": 2,
+      "name": "Test 2",
+      "description": "Al doilea exemplu din enunt - necesita ajustare",
+      "input": "10 15\n4\n",
+      "expectedOutput": "3\nAJUSTARE ROBOT"
+    },
+    {
+      "id": 3,
+      "name": "Test 3",
+      "description": "Odaie minima, robotul merge direct pe diagonala",
+      "input": "1 1\n0\n",
+      "expectedOutput": "0\nCORECT"
+    },
+    {
+      "id": 4,
+      "name": "Test 4",
+      "description": "Odaie patrata - nicio lovitura",
+      "input": "5 5\n0\n",
+      "expectedOutput": "0\nCORECT"
+    },
+    {
+      "id": 5,
+      "name": "Test 5",
+      "description": "Odaie patrata, inregistrare gresita",
+      "input": "5 5\n2\n",
+      "expectedOutput": "0\nAJUSTARE ROBOT"
+    },
+    {
+      "id": 6,
+      "name": "Test 6",
+      "description": "O latura minima si una maxima",
+      "input": "1 10000\n9999\n",
+      "expectedOutput": "9999\nCORECT"
+    },
+    {
+      "id": 7,
+      "name": "Test 7",
+      "description": "Aceleasi laturi, inregistrare gresita",
+      "input": "10000 1\n9998\n",
+      "expectedOutput": "9999\nAJUSTARE ROBOT"
+    },
+    {
+      "id": 8,
+      "name": "Test 8",
+      "description": "Laturi coprime mici",
+      "input": "2 3\n3\n",
+      "expectedOutput": "3\nCORECT"
+    },
+    {
+      "id": 9,
+      "name": "Test 9",
+      "description": "Laturi cu divizor comun 2",
+      "input": "4 6\n3\n",
+      "expectedOutput": "3\nCORECT"
+    },
+    {
+      "id": 10,
+      "name": "Test 10",
+      "description": "Aceleasi laturi inversate, inregistrare gresita",
+      "input": "6 4\n4\n",
+      "expectedOutput": "3\nAJUSTARE ROBOT"
+    },
+    {
+      "id": 11,
+      "name": "Test 11",
+      "description": "Divizor comun 6",
+      "input": "12 18\n3\n",
+      "expectedOutput": "3\nCORECT"
+    },
+    {
+      "id": 12,
+      "name": "Test 12",
+      "description": "Aproape de maximul numarului de lovituri",
+      "input": "9999 10000\n19997\n",
+      "expectedOutput": "19997\nCORECT"
+    },
+    {
+      "id": 13,
+      "name": "Test 13",
+      "description": "Doua laturi maxime egale",
+      "input": "10000 10000\n0\n",
+      "expectedOutput": "0\nCORECT"
+    },
+    {
+      "id": 14,
+      "name": "Test 14",
+      "description": "Divizor comun 25",
+      "input": "100 75\n5\n",
+      "expectedOutput": "5\nCORECT"
+    },
+    {
+      "id": 15,
+      "name": "Test 15",
+      "description": "Latura unitara",
+      "input": "1000 1\n999\n",
+      "expectedOutput": "999\nCORECT"
+    },
+    {
+      "id": 16,
+      "name": "Test 16",
+      "description": "Doua numere prime",
+      "input": "97 89\n184\n",
+      "expectedOutput": "184\nCORECT"
+    },
+    {
+      "id": 17,
+      "name": "Test 17",
+      "description": "Puteri ale lui 2 cu divizor comun 16",
+      "input": "64 48\n5\n",
+      "expectedOutput": "5\nCORECT"
+    },
+    {
+      "id": 18,
+      "name": "Test 18",
+      "description": "O latura divide cealalta",
+      "input": "3 9\n2\n",
+      "expectedOutput": "2\nCORECT"
+    },
+    {
+      "id": 19,
+      "name": "Test 19",
+      "description": "Factoriale, divizor comun 720",
+      "input": "5040 720\n6\n",
+      "expectedOutput": "6\nCORECT"
+    },
+    {
+      "id": 20,
+      "name": "Test 20",
+      "description": "Prim Mersenne si putere a lui 2",
+      "input": "8191 4096\n12285\n",
+      "expectedOutput": "12285\nCORECT"
+    }
+  ]
+}

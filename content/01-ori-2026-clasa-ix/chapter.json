@@ -1,4 +1,14 @@
 {
   "title": "ORI 2026, clasa IX",
-  "description": "Problemele de la Olimpiada Republicană la Informatică 2026, clasele 7-9."
+  "description": "Problemele de la Olimpiada Republicană la Informatică 2026, clasele 7-9.",
+  "links": [
+    {
+      "label": "Descrierea generală a problemelor — Ziua 1",
+      "href": "/ori2026-clasa-ix-descriere-ziua-1.pdf"
+    },
+    {
+      "label": "Descrierea generală a problemelor — Ziua 2",
+      "href": "/ori2026-clasa-ix-descriere-ziua-2.pdf"
+    }
+  ]
 }

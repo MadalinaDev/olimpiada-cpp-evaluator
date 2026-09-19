@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useProgress, countSolved, type ProblemProgress } from "@/lib/progress";
+import type { ChapterLink } from "@/lib/problems";
 
 export interface ProblemRow {
   slug: string;
@@ -20,11 +21,13 @@ export default function ChapterSection({
   index,
   title,
   description,
+  links,
   problems,
 }: {
   index: number;
   title: string;
   description?: string;
+  links?: ChapterLink[];
   problems: ProblemRow[];
 }) {
   const progress = useProgress();
@@ -57,6 +60,35 @@ export default function ChapterSection({
         </div>
         {description && (
           <p className="text-sm text-gray-400 mt-1">{description}</p>
+        )}
+        {links && links.length > 0 && (
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2">
+            {links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm text-blue-400 hover:text-blue-300 underline"
+              >
+                <svg
+                  className="w-3.5 h-3.5 shrink-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+                {link.label}
+              </a>
+            ))}
+          </div>
         )}
       </div>
 

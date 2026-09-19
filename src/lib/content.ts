@@ -3,6 +3,7 @@ import path from "node:path";
 import {
   slugify,
   type Chapter,
+  type ChapterLink,
   type Problem,
   type TestCase,
 } from "@/lib/problems";
@@ -17,7 +18,7 @@ import {
  *
  *   content/
  *     01-ori-2026/
- *       chapter.json            { "title": "...", "description": "..." }
+ *       chapter.json            { "title": "...", "description": "...", "links": [...] }
  *       01-hora-cifrelor.json   { "title", "statement", "testCases": [...] }
  *       02-reducere-binara.json
  *       ...
@@ -64,6 +65,26 @@ function validateTestCase(file: string, tc: unknown, index: number): TestCase {
     expectedOutput: t.expectedOutput as string,
     timeoutMs: typeof t.timeoutMs === "number" ? t.timeoutMs : undefined,
   };
+}
+
+function validateLinks(file: string, raw: unknown): ChapterLink[] | undefined {
+  if (raw === undefined) return undefined;
+  if (!Array.isArray(raw)) fail(file, "links must be an array");
+
+  return raw.map((entry, i) => {
+    const where = `links[${i}]`;
+    if (typeof entry !== "object" || entry === null) {
+      fail(file, `${where} must be an object`);
+    }
+    const l = entry as Record<string, unknown>;
+    if (typeof l.label !== "string" || !l.label.trim()) {
+      fail(file, `${where}.label must be a non-empty string`);
+    }
+    if (typeof l.href !== "string" || !l.href.trim()) {
+      fail(file, `${where}.href must be a non-empty string`);
+    }
+    return { label: l.label as string, href: l.href as string };
+  });
 }
 
 function readJson(file: string): unknown {
@@ -135,6 +156,7 @@ function loadChapter(dir: string): Chapter {
     title: meta.title as string,
     description:
       typeof meta.description === "string" ? meta.description : undefined,
+    links: validateLinks(metaFile, meta.links),
     slug: chapterSlug,
     problems,
   };

@@ -49,6 +49,7 @@ export default function Home() {
               index={chapterIdx + 1}
               title={chapter.title}
               description={chapter.description}
+              links={chapter.links}
               problems={chapter.problems.map((p) => ({
                 slug: p.slug,
                 title: p.title,

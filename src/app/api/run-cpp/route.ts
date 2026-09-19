@@ -15,10 +15,12 @@ import { readQuotaFromHeaders, rememberQuota, type Quota } from "@/lib/quota";
  * Or self-host Judge0: https://github.com/judge0/judge0
  *   and set JUDGE0_API_URL to your instance URL.
  *
- * All test cases go up as ONE batch submission instead of one request each,
- * which is what keeps a 20-test problem from eating 20 of the 50 daily
- * credits. Judge0 does not support wait=true on batches, so results are then
- * polled until every submission leaves the queue.
+ * Test cases go up as batch submissions instead of one request each, which is
+ * what keeps a 20-test problem from eating 20 of the 50 daily credits. Judge0
+ * caps a batch at `max_submission_batch_size`, so a problem with more test
+ * cases than that is split across several batches. Judge0 does not support
+ * wait=true on batches, so results are then polled until every submission
+ * leaves the queue.
  */
 const JUDGE0_API_URL =
   process.env.JUDGE0_API_URL || "https://judge0-ce.p.rapidapi.com";
@@ -38,6 +40,23 @@ const CPP_LANGUAGE_ID = Number(process.env.JUDGE0_LANGUAGE_ID) || 54;
  */
 const COMPILER_OPTIONS =
   process.env.JUDGE0_COMPILER_OPTIONS ?? "-O2 -std=c++17";
+
+/**
+ * Judge0 rejects any batch larger than `max_submission_batch_size` with
+ * "tests batch should not exceed N". It is 20 on Judge0 CE and on the
+ * RapidAPI instance, and it applies to the GET that polls a batch just as
+ * much as to the POST that creates one, so both are chunked.
+ */
+const MAX_BATCH_SIZE = Number(process.env.JUDGE0_MAX_BATCH_SIZE) || 20;
+
+/** Split into groups of at most `size`, keeping order. */
+function chunk<T>(items: T[], size: number): T[][] {
+  const groups: T[][] = [];
+  for (let i = 0; i < items.length; i += size) {
+    groups.push(items.slice(i, i + size));
+  }
+  return groups;
+}
 
 /** Fields we need back from Judge0 when polling a batch. */
 const RESULT_FIELDS =
@@ -112,40 +131,49 @@ class Judge0Client {
     return res;
   }
 
-  /** Submit every test case as one batch. Costs a single request. */
+  /**
+   * Submit every test case, one request per batch of MAX_BATCH_SIZE.
+   * Returns the tokens in the same order as `stdins`.
+   */
   async createBatch(code: string, stdins: string[]): Promise<string[]> {
-    const res = await this.call("/submissions/batch?base64_encoded=false", {
-      method: "POST",
-      body: JSON.stringify({
-        submissions: stdins.map((stdin) => ({
-          source_code: code,
-          language_id: CPP_LANGUAGE_ID,
-          stdin,
-          ...(COMPILER_OPTIONS ? { compiler_options: COMPILER_OPTIONS } : {}),
-        })),
-      }),
-    });
+    const tokens: string[] = [];
 
-    const created = await res.json();
-    if (!Array.isArray(created)) {
-      throw new Error("Judge0 returned an unexpected batch response");
-    }
+    for (const group of chunk(stdins, MAX_BATCH_SIZE)) {
+      const res = await this.call("/submissions/batch?base64_encoded=false", {
+        method: "POST",
+        body: JSON.stringify({
+          submissions: group.map((stdin) => ({
+            source_code: code,
+            language_id: CPP_LANGUAGE_ID,
+            stdin,
+            ...(COMPILER_OPTIONS ? { compiler_options: COMPILER_OPTIONS } : {}),
+          })),
+        }),
+      });
 
-    const tokens = created.map((c) => c?.token).filter(Boolean) as string[];
-    if (tokens.length !== stdins.length) {
-      // Judge0 reports per-submission validation errors in place of a token.
-      const firstError = created.find((c) => c && !c.token);
-      throw new Error(
-        firstError
-          ? `Judge0 rejected a submission: ${JSON.stringify(firstError)}`
-          : "Judge0 did not return a token for every test case",
-      );
+      const created = await res.json();
+      if (!Array.isArray(created)) {
+        throw new Error("Judge0 returned an unexpected batch response");
+      }
+
+      const batchTokens = created.map((c) => c?.token).filter(Boolean) as string[];
+      if (batchTokens.length !== group.length) {
+        // Judge0 reports per-submission validation errors in place of a token.
+        const firstError = created.find((c) => c && !c.token);
+        throw new Error(
+          firstError
+            ? `Judge0 rejected a submission: ${JSON.stringify(firstError)}`
+            : "Judge0 did not return a token for every test case",
+        );
+      }
+
+      tokens.push(...batchTokens);
     }
 
     return tokens;
   }
 
-  /** Fetch the current state of a batch. Costs a single request. */
+  /** Fetch one batch of at most MAX_BATCH_SIZE tokens. Costs a single request. */
   async fetchBatch(tokens: string[]): Promise<Judge0Submission[]> {
     const res = await this.call(
       `/submissions/batch?tokens=${tokens.join(",")}` +
@@ -161,25 +189,33 @@ class Judge0Client {
 
   /** Poll until every submission has finished, or the time budget runs out. */
   async awaitBatch(tokens: string[]): Promise<Judge0Submission[]> {
+    const groups = chunk(tokens, MAX_BATCH_SIZE);
+    const results: Judge0Submission[][] = groups.map(() => []);
+    const finished: boolean[] = groups.map(() => false);
     const deadline = Date.now() + POLL_BUDGET_MS;
+
     await sleep(FIRST_POLL_DELAY_MS);
 
-    let latest = await this.fetchBatch(tokens);
+    // The deadline is only checked between passes, so the first pass always
+    // fetches every group: `results` is never left ragged, and the flattened
+    // array always lines up one-to-one with the test cases.
+    for (;;) {
+      for (let i = 0; i < groups.length; i++) {
+        if (finished[i]) continue; // settled groups cost no further requests
+        results[i] = await this.fetchBatch(groups[i]);
+        finished[i] = !results[i].some(
+          (s) =>
+            !s?.status ||
+            s.status.id === STATUS_IN_QUEUE ||
+            s.status.id === STATUS_PROCESSING,
+        );
+      }
 
-    while (Date.now() < deadline) {
-      const pending = latest.some(
-        (s) =>
-          !s?.status ||
-          s.status.id === STATUS_IN_QUEUE ||
-          s.status.id === STATUS_PROCESSING,
-      );
-      if (!pending) return latest;
-
+      if (finished.every(Boolean) || Date.now() >= deadline) break;
       await sleep(POLL_INTERVAL_MS);
-      latest = await this.fetchBatch(tokens);
     }
 
-    return latest;
+    return results.flat();
   }
 }
 

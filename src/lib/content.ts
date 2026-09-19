@@ -16,11 +16,10 @@ import {
  * Layout:
  *
  *   content/
- *     01-olimpiada-2023/
+ *     01-ori-2026/
  *       chapter.json            { "title": "...", "description": "..." }
- *       01-produs-maxim.json    { "title", "statement", "testCases": [...] }
- *       02-numar-maxim.json
- *     02-probleme-de-antrenament/
+ *       01-hora-cifrelor.json   { "title", "statement", "testCases": [...] }
+ *       02-reducere-binara.json
  *       ...
  *
  * The leading `NN-` on folder and file names controls ordering only; it is
@@ -30,7 +29,7 @@ import {
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
 
-/** Strip the ordering prefix: "01-produs-maxim" -> "produs-maxim" */
+/** Strip the ordering prefix: "01-hora-cifrelor" -> "hora-cifrelor" */
 function stripOrderPrefix(name: string): string {
   return name.replace(/^\d+[-_]?/, "");
 }

@@ -137,17 +137,15 @@ changes needed to add one:
 
 ```
 content/
-  01-olimpiada-2023/
-    chapter.json              { "title": "Olimpiada 2023", "description": "..." }
-    01-produs-maxim.json      { "title", "statement", "testCases": [...] }
-    02-numar-maxim.json
-  02-probleme-de-antrenament/
-    chapter.json
-    01-masini.json
+  01-ori-2026/
+    chapter.json              { "title": "ORI 2026", "description": "..." }
+    01-hora-cifrelor.json     { "title", "statement", "testCases": [...] }
+    02-reducere-binara.json
+    03-mostenirea-lui-amenka.json
 ```
 
 The `NN-` prefix orders things and is stripped from the URL, so
-`01-produs-maxim.json` is served at `/problem/produs-maxim`. Add a chapter by
+`01-hora-cifrelor.json` is served at `/problem/hora-cifrelor`. Add a chapter by
 making a folder with a `chapter.json`; add a problem by dropping a `.json` file
 into one.
 

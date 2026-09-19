@@ -1,0 +1,146 @@
+{
+  "title": "Editor",
+  "statement": "<a href=\"/ori2026-editor.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-blue-400 hover:text-blue-300 underline\">Deschide enunțul problemei (PDF)</a>",
+  "testCases": [
+    {
+      "id": 1,
+      "name": "Test 1",
+      "description": "Primul exemplu din enunt",
+      "input": "15\ninformatica este o disciplina interesanta\n",
+      "expectedOutput": "  informatica\n    este o\n  disciplina\n  interesanta"
+    },
+    {
+      "id": 2,
+      "name": "Test 2",
+      "description": "Al doilea exemplu din enunt",
+      "input": "11\ntotul este bine cand e bine\n",
+      "expectedOutput": "totul este\n bine cand\n  e bine"
+    },
+    {
+      "id": 3,
+      "name": "Test 3",
+      "description": "Un singur cuvant",
+      "input": "10\nsalut\n",
+      "expectedOutput": "  salut"
+    },
+    {
+      "id": 4,
+      "name": "Test 4",
+      "description": "Doua cuvinte care incap pe o linie",
+      "input": "12\nmere si pere\n",
+      "expectedOutput": "mere si pere"
+    },
+    {
+      "id": 5,
+      "name": "Test 5",
+      "description": "Cuvinte de o litera",
+      "input": "10\na b c d e f g h i j\n",
+      "expectedOutput": "a b c d e\nf g h i j"
+    },
+    {
+      "id": 6,
+      "name": "Test 6",
+      "description": "Departajare: numar maxim de cuvinte pe prima linie",
+      "input": "10\nabcd efgh ijkl\n",
+      "expectedOutput": "abcd efgh\n   ijkl"
+    },
+    {
+      "id": 7,
+      "name": "Test 7",
+      "description": "Fiecare cuvant umple exact linia",
+      "input": "10\nabcdefghij klmnopqrst\n",
+      "expectedOutput": "abcdefghij\nklmnopqrst"
+    },
+    {
+      "id": 8,
+      "name": "Test 8",
+      "description": "Spatii multiple intre cuvinte",
+      "input": "12\nunu   doi    trei  patru\n",
+      "expectedOutput": "  unu doi\n trei patru"
+    },
+    {
+      "id": 9,
+      "name": "Test 9",
+      "description": "Cuvant exact cat latimea, intre altele scurte",
+      "input": "10\nana abcdefghij are mere\n",
+      "expectedOutput": "   ana\nabcdefghij\n are mere"
+    },
+    {
+      "id": 10,
+      "name": "Test 10",
+      "description": "Propozitie scurta pe linii de 13",
+      "input": "13\nunu doi trei patru cinci sase sapte\n",
+      "expectedOutput": "unu doi trei\n patru cinci\n sase sapte"
+    },
+    {
+      "id": 11,
+      "name": "Test 11",
+      "description": "Lacomia simpla ar da un rezultat gresit",
+      "input": "20\nprogramarea in limbajul cpp cere multa rabdare si exercitiu\n",
+      "expectedOutput": "   programarea in\n limbajul cpp cere\n   multa rabdare\n    si exercitiu"
+    },
+    {
+      "id": 12,
+      "name": "Test 12",
+      "description": "Cuvinte lungi si scurte amestecate",
+      "input": "16\nextraordinar de simplu dar si de complicat in acelasi timp\n",
+      "expectedOutput": "extraordinar de\n simplu dar si\nde complicat in\n  acelasi timp"
+    },
+    {
+      "id": 13,
+      "name": "Test 13",
+      "description": "Latime minima admisa",
+      "input": "10\ncod sursa test unitar rapid\n",
+      "expectedOutput": "cod sursa\n   test\n  unitar\n  rapid"
+    },
+    {
+      "id": 14,
+      "name": "Test 14",
+      "description": "Text lung pe linii de 40",
+      "input": "40\nalgoritmii rezolva probleme grele in timp scurt daca sunt alesi cu grija de catre programator\n",
+      "expectedOutput": "   algoritmii rezolva probleme grele\n     in timp scurt daca sunt alesi\n     cu grija de catre programator"
+    },
+    {
+      "id": 15,
+      "name": "Test 15",
+      "description": "Acelasi text pe linii de 25",
+      "input": "25\nalgoritmii rezolva probleme grele in timp scurt daca sunt alesi cu grija de catre programator\n",
+      "expectedOutput": "   algoritmii rezolva\n    probleme grele in\n  timp scurt daca sunt\n    alesi cu grija de\n    catre programator"
+    },
+    {
+      "id": 16,
+      "name": "Test 16",
+      "description": "Acelasi text pe linii de 60",
+      "input": "60\nalgoritmii rezolva probleme grele in timp scurt daca sunt alesi cu grija de catre programator\n",
+      "expectedOutput": "      algoritmii rezolva probleme grele in timp scurt\n       daca sunt alesi cu grija de catre programator"
+    },
+    {
+      "id": 17,
+      "name": "Test 17",
+      "description": "Multe cuvinte de aceeasi lungime",
+      "input": "14\naaa bbb ccc ddd eee fff ggg hhh iii jjj kkk\n",
+      "expectedOutput": " aaa bbb ccc\n ddd eee fff\n ggg hhh iii\n   jjj kkk"
+    },
+    {
+      "id": 18,
+      "name": "Test 18",
+      "description": "Cuvinte de lungimi crescatoare",
+      "input": "18\na bb ccc dddd eeeee ffffff ggggggg hhhhhhhh\n",
+      "expectedOutput": "  a bb ccc dddd\n   eeeee ffffff\n ggggggg hhhhhhhh"
+    },
+    {
+      "id": 19,
+      "name": "Test 19",
+      "description": "Doua cuvinte lungi si unul scurt",
+      "input": "22\ndescompunere recursiva a numerelor naturale in factori primi\n",
+      "expectedOutput": "descompunere recursiva\n a numerelor naturale\n   in factori primi"
+    },
+    {
+      "id": 20,
+      "name": "Test 20",
+      "description": "Text mai amplu pe linii de 32",
+      "input": "32\nun editor de text bun trebuie sa aseze cuvintele astfel incat liniile sa fie cat mai uniforme ca lungime\n",
+      "expectedOutput": " un editor de text bun trebuie\n   sa aseze cuvintele astfel\n    incat liniile sa fie cat\n    mai uniforme ca lungime"
+    }
+  ]
+}

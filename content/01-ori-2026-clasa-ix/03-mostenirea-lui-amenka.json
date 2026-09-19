@@ -1,0 +1,174 @@
+{
+  "title": "Moștenirea lui Amenka",
+  "statement": "<a href=\"/ori2026-mostenirea-lui-amenka.pdf\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-blue-400 hover:text-blue-300 underline\">Deschide enunțul problemei (PDF)</a>",
+  "testCases": [
+    {
+      "id": 1,
+      "name": "Test 1",
+      "description": "Primul exemplu din enunt - N este deja prim",
+      "input": "7\n",
+      "expectedOutput": "7"
+    },
+    {
+      "id": 2,
+      "name": "Test 2",
+      "description": "Al doilea exemplu din enunt",
+      "input": "10\n",
+      "expectedOutput": "3 7"
+    },
+    {
+      "id": 3,
+      "name": "Test 3",
+      "description": "Al treilea exemplu din enunt",
+      "input": "27\n",
+      "expectedOutput": "2 2 23"
+    },
+    {
+      "id": 4,
+      "name": "Test 4",
+      "description": "Cea mai mica valoare posibila",
+      "input": "2\n",
+      "expectedOutput": "2"
+    },
+    {
+      "id": 5,
+      "name": "Test 5",
+      "description": "Cel mai mic prim impar",
+      "input": "3\n",
+      "expectedOutput": "3"
+    },
+    {
+      "id": 6,
+      "name": "Test 6",
+      "description": "Cel mai mic numar compus",
+      "input": "4\n",
+      "expectedOutput": "2 2"
+    },
+    {
+      "id": 7,
+      "name": "Test 7",
+      "description": "Numar prim",
+      "input": "5\n",
+      "expectedOutput": "5"
+    },
+    {
+      "id": 8,
+      "name": "Test 8",
+      "description": "Par mic, compus",
+      "input": "6\n",
+      "expectedOutput": "3 3"
+    },
+    {
+      "id": 9,
+      "name": "Test 9",
+      "description": "Impar compus cu N-2 prim",
+      "input": "9\n",
+      "expectedOutput": "2 7"
+    },
+    {
+      "id": 10,
+      "name": "Test 10",
+      "description": "Numar prim",
+      "input": "11\n",
+      "expectedOutput": "11"
+    },
+    {
+      "id": 11,
+      "name": "Test 11",
+      "description": "Impar compus",
+      "input": "15\n",
+      "expectedOutput": "2 13"
+    },
+    {
+      "id": 12,
+      "name": "Test 12",
+      "description": "Putere a lui 2",
+      "input": "16\n",
+      "expectedOutput": "3 13"
+    },
+    {
+      "id": 13,
+      "name": "Test 13",
+      "description": "Patrat perfect impar",
+      "input": "25\n",
+      "expectedOutput": "2 23"
+    },
+    {
+      "id": 14,
+      "name": "Test 14",
+      "description": "Impar care cere trei termeni",
+      "input": "35\n",
+      "expectedOutput": "2 2 31"
+    },
+    {
+      "id": 15,
+      "name": "Test 15",
+      "description": "Numar prim de doua cifre",
+      "input": "97\n",
+      "expectedOutput": "97"
+    },
+    {
+      "id": 16,
+      "name": "Test 16",
+      "description": "Par rotund",
+      "input": "100\n",
+      "expectedOutput": "3 97"
+    },
+    {
+      "id": 17,
+      "name": "Test 17",
+      "description": "Impar unde 2+2+(N-4) nu functioneaza",
+      "input": "119\n",
+      "expectedOutput": "3 3 113"
+    },
+    {
+      "id": 18,
+      "name": "Test 18",
+      "description": "Patratul lui 11",
+      "input": "121\n",
+      "expectedOutput": "3 5 113"
+    },
+    {
+      "id": 19,
+      "name": "Test 19",
+      "description": "O mie",
+      "input": "1000\n",
+      "expectedOutput": "3 997"
+    },
+    {
+      "id": 20,
+      "name": "Test 20",
+      "description": "Impar compus, 7*11*13",
+      "input": "1001\n",
+      "expectedOutput": "2 2 997"
+    },
+    {
+      "id": 21,
+      "name": "Test 21",
+      "description": "Impar mare compus",
+      "input": "9999\n",
+      "expectedOutput": "3 23 9973"
+    },
+    {
+      "id": 22,
+      "name": "Test 22",
+      "description": "O suta de mii",
+      "input": "100000\n",
+      "expectedOutput": "11 99989"
+    },
+    {
+      "id": 23,
+      "name": "Test 23",
+      "description": "Impar aproape de limita",
+      "input": "999999\n",
+      "expectedOutput": "3 13 999983"
+    },
+    {
+      "id": 24,
+      "name": "Test 24",
+      "description": "Valoarea maxima admisa",
+      "input": "1000000\n",
+      "expectedOutput": "17 999983"
+    }
+  ]
+}

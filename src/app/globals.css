@@ -27,3 +27,41 @@
 .animate-shake {
   animation: shake 0.4s ease-in-out;
 }
+
+/*
+ * The app is dark-only. Without this, the browser assumes a light page and
+ * paints its own chrome — scrollbars above all — white, which shows up as a
+ * pale strip down the side of every scrollable panel.
+ */
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-gray-950, #030712);
+}
+
+/* color-scheme alone already darkens scrollbars; these rules just make them
+   match the gray-900 panels instead of the browser's default grey. */
+:root {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gray-700, #364153) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-gray-700, #364153);
+  border-radius: 9999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-gray-600, #4a5565);
+}

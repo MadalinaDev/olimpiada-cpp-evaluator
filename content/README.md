@@ -7,21 +7,17 @@ add a problem or a chapter; drop in a JSON file and refresh.
 
 ```
 content/
-  01-olimpiada-2023/            <- a chapter (folder)
+  01-ori-2026/                  <- a chapter (folder)
     chapter.json                <- the chapter's name
-    01-produs-maxim.json        <- a problem
-    02-numar-maxim.json
-    03-bancherul.json
-    04-indice-bursier.json
-  02-probleme-de-antrenament/
-    chapter.json
-    01-masini.json
+    01-hora-cifrelor.json       <- a problem
+    02-reducere-binara.json
+    03-mostenirea-lui-amenka.json
     ...
 ```
 
 **The `NN-` prefix controls ordering only.** Chapters are sorted by folder
 name, problems by file name, and the prefix is stripped from the URL. So
-`01-produs-maxim.json` is served at `/problem/produs-maxim`.
+`01-hora-cifrelor.json` is served at `/problem/hora-cifrelor`.
 
 ## Adding a chapter
 
@@ -105,7 +101,7 @@ Each test case:
 Mistakes fail loudly, naming the file and the field:
 
 ```
-Invalid content in .../content/01-olimpiada-2023/01-produs-maxim.json:
+Invalid content in .../content/01-ori-2026/01-hora-cifrelor.json:
   testCases[3].expectedOutput must be a string
 ```
 
